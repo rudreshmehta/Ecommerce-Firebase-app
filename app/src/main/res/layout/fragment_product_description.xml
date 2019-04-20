@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDescriptionFragment">
+
+    <TextView
+        android:id="@+id/tv_product_description"
+        android:layout_margin="16dp"
+        android:textColor="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet, eu diam scripta facilis usu. Vim
+erat persequeris concludaturque an, usu vidit nominati
+complectitur ex. Pri mundi albucius elaboraret id. Cu nam
+omnium audire necessitatibus.
+
+Id vel verear legimus dissentias, mea oratio petentium
+inciderint in. Ei ius populo similique, at mel brute petentium.
+Sit an vide integre, at harum blandit petentium usu, et mea
+eros alterum consulatu. Quot putant posidonium has ei,
+verear constituto sea ei. Deseruisse concludaturque mel ut.
+Alii senserit eum ne, est et graece tibique, civibus recusabo
+suscipiantur at vim." />
+</FrameLayout>
