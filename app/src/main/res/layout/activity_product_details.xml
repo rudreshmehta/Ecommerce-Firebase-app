@@ -90,7 +90,7 @@
             android:text="BUY NOW"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:stateListAnimator="null"
+            android:stateListAnimator="@null"
             android:layout_weight="1"
             android:textColor="@color/colorAccent"
             android:background="@color/colorPrimary"

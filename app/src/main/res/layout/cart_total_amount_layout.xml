@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#d6d6d6"
+    android:layout_marginTop="4dp"
     android:elevation="3dp">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/happy_shopping_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="PRICE DETAILS"
-            android:textSize="16sp"
+            android:text=" PRICE DETAILS "
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -84,7 +84,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
         <TextView
-            android:id="@+id/delivery_charge"
+            android:id="@+id/delivery_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -100,7 +100,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="@+id/delivery_charge"
+            app:layout_constraintEnd_toEndOf="@+id/delivery_price"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -117,7 +117,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -139,7 +139,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/saved_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

@@ -10,7 +10,7 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/product_images_viewpager"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="250dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,9 +46,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Product Title"
+        android:text="Aashirvaad Aata"
         android:textColor="#000000"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewpager_indicator" />
 
@@ -106,7 +107,7 @@
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Rs.49999/-"
+        android:text="Rs.659/-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -115,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="59999/-"
+        android:text="759/-"
         app:layout_constraintBottom_toBottomOf="@+id/product_price"
         app:layout_constraintStart_toEndOf="@+id/product_price" />
 

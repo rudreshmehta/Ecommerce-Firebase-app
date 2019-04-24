@@ -149,7 +149,7 @@ public class ResetPasswordFragment extends Fragment {
                             resetPasswordButton.setTextColor(Color.rgb(255, 255, 255));
                             emailIcon.setImageResource(R.mipmap.red_mail);
                             emailIconText.setText(error);
-                            emailIconText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            emailIconText.setTextColor(getResources().getColor(R.color.btnRed));
                             TransitionManager.beginDelayedTransition(emailIconContainer);
                             emailIconText.setVisibility(View.VISIBLE);
                            // Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
@@ -174,7 +174,7 @@ public class ResetPasswordFragment extends Fragment {
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_from_left, R.anim.slideout_from_right);
+        fragmentTransaction.setCustomAnimations(R.anim.slideout_from_left, R.anim.slideout_from_right);
         fragmentTransaction.replace(parentFrameLayout.getId(), fragment);
         fragmentTransaction.commit();
     }

@@ -92,22 +92,20 @@ public class HomeFragment extends Fragment {
 
         List<SliderModel>sliderModelList = new ArrayList<SliderModel>();
 
-        sliderModelList.add(new SliderModel(R.mipmap.home_icon, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.custom_error_icon, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.green_mail, "#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
 
-        sliderModelList.add(new SliderModel(R.mipmap.red_mail, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.ic_launcher, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.ic_launcher_round, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.cart_black, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.profile_placeholder, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.home_icon, "#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_two, "#FFFFFF"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_three, "#E7E9E8"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_four, "#FFFFFF"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_five, "#E5D3DF"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
 
-
-        sliderModelList.add(new SliderModel(R.mipmap.custom_error_icon, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.green_mail, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.mipmap.red_mail, "#077AE4"));
-
+        sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
         ///////////////////////////////////
 
 
@@ -115,15 +113,15 @@ public class HomeFragment extends Fragment {
         //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
         List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
 
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.ic_launcher, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.ic_launcher_round, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cart_black, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.custom_error_icon, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.green_mail, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.red_mail, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.home_icon, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cart_black, "Redmi 5A", "SD 625 Processor", "Rs. 5999/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.flour, "Aashirwaad Aata", "Pure Sugar Wheat Control Flour", "Rs. 649/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.biscuits, "Cadbury Cookies", "Delicious Cadbury Cookies", "Rs. 99/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.chips, "Lays Chips", "Simply Salted Chips", "Rs. 29/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cleaner, "Lizol Cleaner", "Lizol Cleaner with Jasmine", "Rs. 250/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.coffee, "Nescafe Coffee", "Try Classic Coffee", "Rs. 120/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.dal, "Robin Toor Dal", "Perfect Tool Dal", "Rs. 659/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.deo, "Police Deo", "Try our 3 Combo deo", "Rs. 498/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.perfume, "Denver Perfume", "Smell Good", "Rs. 125/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cleaning_tools, "MOP Cleaner", "Clean your floor with MOP", "Rs. 999/-"));
         //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
 
         testing = view.findViewById(R.id.homepage_recyclerview);
@@ -132,13 +130,13 @@ public class HomeFragment extends Fragment {
         testing.setLayoutManager(testingLayoutManager);
         List<HomePageModel> homePageModelList = new ArrayList<>();
         homePageModelList.add(new HomePageModel(0,sliderModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd,"#000000"));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
         homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#ffff00"));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#ffffff"));
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd,"#ff0000"));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
         homePageModelList.add(new HomePageModel(0,sliderModelList));
         HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
         testing.setAdapter(adapter);

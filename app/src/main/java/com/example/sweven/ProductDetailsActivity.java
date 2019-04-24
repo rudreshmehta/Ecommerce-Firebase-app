@@ -1,5 +1,6 @@
 package com.example.sweven;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -31,6 +33,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     /*********** RATINGS LAYOUT ******/
 
+    private Button buyNowBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +49,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
         addToWishListBtn = findViewById(R.id.add_to_wishlist_btn);
         productDetailsViewPager = findViewById(R.id.product_details_viewpager);
         productDetailsTabLayout = findViewById(R.id.product_details_tablayout);
+        buyNowBtn = findViewById(R.id.buy_now_btn);
 
         List<Integer> productImages = new ArrayList<>();
-        productImages.add(R.drawable.product_image);
-        productImages.add(R.drawable.image2);
-        productImages.add(R.drawable.banner);
-        productImages.add(R.drawable.stripadd);
+        productImages.add(R.drawable.flour);
+        productImages.add(R.drawable.flour);
+        productImages.add(R.drawable.flour);
+        productImages.add(R.drawable.flour);
         ProductImagesAdapter productImagesAdapter = new ProductImagesAdapter(productImages);
         productImagesViewPager.setAdapter(productImagesAdapter);
         viewPagerIndicator.setupWithViewPager(productImagesViewPager, true);
@@ -98,6 +103,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
             });
         }
         /*********** RATINGS LAYOUT ******/
+
+        buyNowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent deliveryIntent = new Intent(ProductDetailsActivity.this,DeliveryActivity.class);
+                startActivity(deliveryIntent);
+            }
+        });
     }
 
     @Override

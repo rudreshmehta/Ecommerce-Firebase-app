@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorAccent"
     android:elevation="3dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -35,8 +37,9 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:tint="#8000FF"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_free_coupon"
         app:layout_constraintStart_toStartOf="@+id/product_title"
-        app:layout_constraintTop_toBottomOf="@+id/product_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_free_coupon"
         app:srcCompat="@mipmap/coupen" />
 
     <TextView
@@ -67,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:textSize="12sp"
         android:text="Rs. 59999/-"
         app:layout_constraintBottom_toBottomOf="@+id/product_price"
         app:layout_constraintEnd_toStartOf="@+id/product_price" />
