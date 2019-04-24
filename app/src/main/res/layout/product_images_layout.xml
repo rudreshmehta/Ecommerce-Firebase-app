@@ -10,7 +10,7 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/product_images_viewpager"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
