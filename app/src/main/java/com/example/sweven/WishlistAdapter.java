@@ -1,5 +1,6 @@
 package com.example.sweven;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,9 +16,10 @@ import java.util.List;
 public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
 
     private List<WishlistModel> wishlistModelList;
-
-    public WishlistAdapter(List<WishlistModel> wishlistModelList) {
+    private Boolean wishlist;
+    public WishlistAdapter(List<WishlistModel> wishlistModelList,Boolean wishlist) {
         this.wishlistModelList = wishlistModelList;
+        this.wishlist=wishlist;
     }
 
     @NonNull
@@ -99,10 +101,23 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             productPrice.setText(price);
             cuttedPrice.setText(cuttedPriceValue);
             paymentMethod.setText(payMethod);
+            if(wishlist){
+                deleteButton.setVisibility(View.VISIBLE);
+            }
+            else {
+                deleteButton.setVisibility(View.GONE);
+            }
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(itemView.getContext(), "Delete", Toast.LENGTH_LONG).show();
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent productDetailsIntent = new Intent(itemView.getContext(),ProductDetailsActivity.class);
+                    itemView.getContext().startActivity(productDetailsIntent);
                 }
             });
         }

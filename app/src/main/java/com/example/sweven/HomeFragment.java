@@ -91,10 +91,6 @@ public class HomeFragment extends Fragment {
         /////////////////////////BANNER SLIDER///////////////////////
 
         List<SliderModel>sliderModelList = new ArrayList<SliderModel>();
-
-        sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
-
         sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
         sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
         sliderModelList.add(new SliderModel(R.drawable.banner_two, "#FFFFFF"));
@@ -103,9 +99,6 @@ public class HomeFragment extends Fragment {
         sliderModelList.add(new SliderModel(R.drawable.banner_five, "#E5D3DF"));
         sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
         sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
-
-        sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
         ///////////////////////////////////
 
 
@@ -137,7 +130,13 @@ public class HomeFragment extends Fragment {
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
-        homePageModelList.add(new HomePageModel(0,sliderModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
+        homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#ffffff"));
+        homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
         HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
         testing.setAdapter(adapter);
         adapter.notifyDataSetChanged();

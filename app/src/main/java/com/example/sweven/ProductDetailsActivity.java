@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.sweven.MainActivity.showCart;
+
 public class ProductDetailsActivity extends AppCompatActivity {
     private ViewPager productImagesViewPager;
     private TabLayout viewPagerIndicator;
@@ -107,7 +109,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         buyNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent deliveryIntent = new Intent(ProductDetailsActivity.this,DeliveryActivity.class);
+                Intent deliveryIntent = new Intent(ProductDetailsActivity.this, DeliveryActivity.class);
                 startActivity(deliveryIntent);
             }
         });
@@ -136,7 +138,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
             //todo:search
             return true;
         } else if (id == R.id.main_cart_icon) {
-            //todo:cart
+            Intent cartIntent = new Intent(ProductDetailsActivity.this, MainActivity.class);
+            showCart = true;
+            startActivity(cartIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);
