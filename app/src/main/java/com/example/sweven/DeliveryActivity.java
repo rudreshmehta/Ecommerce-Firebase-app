@@ -1,5 +1,6 @@
 package com.example.sweven;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,7 +46,13 @@ public class DeliveryActivity extends AppCompatActivity {
         deliveryRecyclerView.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
         changeOrAddNewAddressBtn.setVisibility(View.VISIBLE);
-
+        changeOrAddNewAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent MyAddressesIntent = new Intent(DeliveryActivity.this,MyAddressesActivity.class);
+                startActivity(MyAddressesIntent);
+            }
+        });
     }
 
     @Override
