@@ -123,7 +123,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_dont_have_an_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_sign_up_btn" />
 
         <TextView
             android:id="@+id/tv_dont_have_an_account"
@@ -171,7 +171,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/sign_up_btn"
+            app:layout_constraintBottom_toTopOf="@+id/dialog_sign_up_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />

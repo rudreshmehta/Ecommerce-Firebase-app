@@ -67,7 +67,7 @@ public class SignUpFragment extends Fragment {
         password = view.findViewById(R.id.sign_up_password);
         confirmpassword = view.findViewById(R.id.sign_up_confirm_password);
         closeBtn = view.findViewById(R.id.sign_up_close_btn);
-        signUpBtn = view.findViewById(R.id.sign_up_btn);
+        signUpBtn = view.findViewById(R.id.dialog_sign_up_btn);
         progressBar = view.findViewById(R.id.sign_up_progressbar);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();

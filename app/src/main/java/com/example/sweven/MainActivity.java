@@ -1,8 +1,8 @@
 package com.example.sweven;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -14,8 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import static com.example.sweven.RegisterActivity.setSignUpFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int WISHLIST_FRAGMENT = 3;
     private static final int REWARDS_FRAGMENT = 4;
     private static final int ACCOUNT_FRAGMENT = 5;
-    public static Boolean showCart= false;
+    public static Boolean showCart = false;
     private FrameLayout frameLayout;
     private ImageView actionBarLogo;
     private int currentFragment = -1;
@@ -47,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.getMenu().getItem(0).setChecked(true);
         frameLayout = findViewById(R.id.main_framelayout);
 
-        if(showCart){
+        if (showCart) {
             drawer.setDrawerLockMode(1);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            gotoFragment("My Cart",new MyCartFragment(),-2);
-        }else{
+            gotoFragment("My Cart", new MyCartFragment(), -2);
+        } else {
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
@@ -59,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             setFragment(new HomeFragment(), HOME_FRAGMENT);
         }
-
 
 
     }
@@ -70,20 +73,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(currentFragment==HOME_FRAGMENT){
-                currentFragment=-1;
+            if (currentFragment == HOME_FRAGMENT) {
+                currentFragment = -1;
                 super.onBackPressed();
-            }else{
-                if(showCart){
+            } else {
+                if (showCart) {
                     showCart = false;
                     finish();
-                }else {
+                } else {
                     actionBarLogo.setVisibility(View.VISIBLE);
                     invalidateOptionsMenu();
                     setFragment(new HomeFragment(), HOME_FRAGMENT);
                     navigationView.getMenu().getItem(0).setChecked(true);
                 }
-                }
+            }
         }
     }
 
@@ -112,11 +115,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //todo:notifications
             return true;
         } else if (id == R.id.main_cart_icon) {
-            gotoFragment("My Cart",new MyCartFragment(),CART_FRAGMENT);
+            final Dialog signInDialog = new Dialog(MainActivity.this);
+            signInDialog.setContentView(R.layout.sign_in_dialog);
+            signInDialog.setCancelable(true);
+            signInDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            Button dialogSignInBtn = signInDialog.findViewById(R.id.dialog_sign_in_btn);
+            Button dialogSignUpBtn = signInDialog.findViewById(R.id.dialog_sign_up_btn);
+            final Intent registerIntent = new Intent(MainActivity.this,RegisterActivity.class);
+            dialogSignInBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signInDialog.dismiss();
+                 setSignUpFragment =false;
+                 startActivity(registerIntent);
+                }
+            });
+            dialogSignUpBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signInDialog.dismiss();
+                    setSignUpFragment =true;
+                    startActivity(registerIntent);
+                }
+            });
+            signInDialog.show();
+            //gotoFragment("My Cart",new MyCartFragment(),CART_FRAGMENT);
             return true;
-        }else if(id==android.R.id.home){
-            if(showCart){
-                showCart=false;
+        } else if (id == android.R.id.home) {
+            if (showCart) {
+                showCart = false;
                 finish();
                 return true;
             }
@@ -125,13 +152,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    private void gotoFragment(String title,Fragment fragment,int fragmentNo) {
+    private void gotoFragment(String title, Fragment fragment, int fragmentNo) {
         actionBarLogo.setVisibility(View.GONE);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(title);
         invalidateOptionsMenu();
         setFragment(fragment, fragmentNo);
-        if(fragmentNo == CART_FRAGMENT) {
+        if (fragmentNo == CART_FRAGMENT) {
             navigationView.getMenu().getItem(3).setChecked(true);
         }
     }
@@ -146,16 +173,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             invalidateOptionsMenu();
             setFragment(new HomeFragment(), HOME_FRAGMENT);
         } else if (id == R.id.nav_my_orders) {
-            gotoFragment("My Orders",new MyOrdersFragment(),ORDERS_FRAGMENT);
+            gotoFragment("My Orders", new MyOrdersFragment(), ORDERS_FRAGMENT);
         } else if (id == R.id.nav_my_rewards) {
-            gotoFragment("My Rewards",new MyRewardsFragment(),REWARDS_FRAGMENT);
+            gotoFragment("My Rewards", new MyRewardsFragment(), REWARDS_FRAGMENT);
         } else if (id == R.id.nav_my_cart) {
-            gotoFragment("My Cart",new MyCartFragment(),CART_FRAGMENT);
+            gotoFragment("My Cart", new MyCartFragment(), CART_FRAGMENT);
 
         } else if (id == R.id.nav_my_wishlist) {
-            gotoFragment("My Wishlist", new MyWishlistFragment(),WISHLIST_FRAGMENT);
+            gotoFragment("My Wishlist", new MyWishlistFragment(), WISHLIST_FRAGMENT);
         } else if (id == R.id.nav_my_account) {
-            gotoFragment("My Account",new MyAccountFragment(),ACCOUNT_FRAGMENT);
+            gotoFragment("My Account", new MyAccountFragment(), ACCOUNT_FRAGMENT);
         } else if (id == R.id.nav_sign_out) {
 
         }
