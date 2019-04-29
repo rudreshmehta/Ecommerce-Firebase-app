@@ -4,6 +4,7 @@ package com.example.sweven;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -17,6 +18,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,35 +45,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
     private RecyclerView testing;
-   /* ///////////////////////// BANNER SLIDER  /////////////////////////////////////////
+    private List<CategoryModel> categoryModelList;
+    private FirebaseFirestore firebaseFirestore;
 
-    private ViewPager bannerSliderViewPager;
-    private List<SliderModel> sliderModelList;
-    private int currentPage = 2;
-    private Timer timer;
-    final private long DELAY_TIME = 3000;
-    final private long PERIOD_TIME = 3000;
-
-    ////////////////////////////  ENDS    ////////////////////////////////////
-*/
-/*
-    ////////////////////////////////STRIP AD  ////////////////////////////////////////////////
-
-    private ImageView stripAdImage;
-    private ConstraintLayout stripAdContainer;
-
-    //////////////////////////////// STRIP AD ////////////////////////////////////////////////
-
-  */
-/*
-//////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
-    private TextView horizontalLayoutTitle;
-    private Button horizontalViewAllBtn;
-    private RecyclerView horizontalRecyclerView;
-
-    //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
-
-*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,20 +59,31 @@ public class HomeFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(layoutManager);
 
-        final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
-        categoryModelList.add(new CategoryModel("link", "Home"));
-        categoryModelList.add(new CategoryModel("link", "Cooking Essentials"));
-        categoryModelList.add(new CategoryModel("link", "Packaged Foods"));
-        categoryModelList.add(new CategoryModel("link", "Household Essentials"));
-        categoryModelList.add(new CategoryModel("link", "Beauty & Grooming"));
+        categoryModelList = new ArrayList<CategoryModel>();
+
         categoryAdapter = new CategoryAdapter(categoryModelList);
         categoryRecyclerView.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
 
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("CATEGORIES").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        categoryModelList.add(new CategoryModel(documentSnapshot.get("icon").toString(), documentSnapshot.get("categoryName").toString()));
+                    }
+                    categoryAdapter.notifyDataSetChanged();
+                } else {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         /////////////////////////BANNER SLIDER///////////////////////
 
-        List<SliderModel>sliderModelList = new ArrayList<SliderModel>();
+        List<SliderModel> sliderModelList = new ArrayList<SliderModel>();
         sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
         sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
         sliderModelList.add(new SliderModel(R.drawable.banner_two, "#FFFFFF"));
@@ -100,7 +93,6 @@ public class HomeFragment extends Fragment {
         sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
         sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
         ///////////////////////////////////
-
 
 
         //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
@@ -122,21 +114,21 @@ public class HomeFragment extends Fragment {
         testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         testing.setLayoutManager(testingLayoutManager);
         List<HomePageModel> homePageModelList = new ArrayList<>();
-        homePageModelList.add(new HomePageModel(0,sliderModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
-        homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#ffffff"));
-        homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
-        homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#ffffff"));
-        homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(2,"Deals of the Day",horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1,R.drawable.stripadd_flour_image,"#FFFFFF"));
+        homePageModelList.add(new HomePageModel(0, sliderModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
+        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#ffffff"));
+        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
+        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
+        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#ffffff"));
+        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
         HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
         testing.setAdapter(adapter);
         adapter.notifyDataSetChanged();

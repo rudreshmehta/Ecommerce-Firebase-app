@@ -13,15 +13,21 @@ public class MyRewardsAdapter extends RecyclerView.Adapter<MyRewardsAdapter.View
 
 
     private List<RewardModel> rewardModelList;
-
-    public MyRewardsAdapter(List<RewardModel> rewardModelList) {
+private Boolean useMiniLayout=false;
+    public MyRewardsAdapter(List<RewardModel> rewardModelList,Boolean useMiniLayout) {
         this.rewardModelList = rewardModelList;
+        this.useMiniLayout=useMiniLayout;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rewards_item_layout,viewGroup,false);
+        View view;
+        if(useMiniLayout){
+             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.mini_rewards_item_layout,viewGroup,false);
+        }else {
+             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rewards_item_layout, viewGroup, false);
+        }
         return new ViewHolder(view);
     }
 
@@ -50,10 +56,24 @@ public class MyRewardsAdapter extends RecyclerView.Adapter<MyRewardsAdapter.View
             couponValidity=itemView.findViewById(R.id.coupon_validity);
             couponBody=itemView.findViewById(R.id.coupon_body);
         }
-        private void setData(String title,String validity,String body){
+        private void setData(final String title, final String validity, final String body){
             couponTitle.setText(title);
             couponValidity.setText(validity);
             couponBody.setText(body);
+
+            if(useMiniLayout){
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                     ProductDetailsActivity.couponTitle.setText(title);
+                        ProductDetailsActivity.couponExpiryDate.setText(validity);
+                        ProductDetailsActivity.couponTBody.setText(body);
+                        ProductDetailsActivity.showDialogRecyclerView();
+                    }
+                });
+            }
+
+
         }
     }
 }
