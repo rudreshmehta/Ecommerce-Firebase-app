@@ -44,10 +44,10 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
-    private RecyclerView testing;
+    private RecyclerView homePageRecyclerView;
     private List<CategoryModel> categoryModelList;
     private FirebaseFirestore firebaseFirestore;
-
+    private HomePageAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +83,14 @@ public class HomeFragment extends Fragment {
 
         /////////////////////////BANNER SLIDER///////////////////////
 
-        List<SliderModel> sliderModelList = new ArrayList<SliderModel>();
+
+//        List<SliderModel> sliderModelList = new ArrayList<SliderModel>();
+
+
+
+
+
+/*
         sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
         sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
         sliderModelList.add(new SliderModel(R.drawable.banner_two, "#FFFFFF"));
@@ -92,11 +99,12 @@ public class HomeFragment extends Fragment {
         sliderModelList.add(new SliderModel(R.drawable.banner_five, "#E5D3DF"));
         sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
         sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
+*/
         ///////////////////////////////////
 
 
         //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
-        List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
+        /*List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
 
         horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.flour, "Aashirwaad Aata", "Pure Sugar Wheat Control Flour", "Rs. 649/-"));
         horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.biscuits, "Cadbury Cookies", "Delicious Cadbury Cookies", "Rs. 99/-"));
@@ -106,32 +114,60 @@ public class HomeFragment extends Fragment {
         horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.dal, "Robin Toor Dal", "Perfect Tool Dal", "Rs. 659/-"));
         horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.deo, "Police Deo", "Try our 3 Combo deo", "Rs. 498/-"));
         horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.perfume, "Denver Perfume", "Smell Good", "Rs. 125/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cleaning_tools, "MOP Cleaner", "Clean your floor with MOP", "Rs. 999/-"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cleaning_tools, "MOP Cleaner", "Clean your floor with MOP", "Rs. 999/-"));*/
         //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
 
-        testing = view.findViewById(R.id.homepage_recyclerview);
+        homePageRecyclerView = view.findViewById(R.id.homepage_recyclerview);
         LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
         testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        testing.setLayoutManager(testingLayoutManager);
-        List<HomePageModel> homePageModelList = new ArrayList<>();
-        homePageModelList.add(new HomePageModel(0, sliderModelList));
-        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
-        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#ffffff"));
-        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
-        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
-        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#ffffff"));
-        homePageModelList.add(new HomePageModel(3, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(2, "Deals of the Day", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(1, R.drawable.stripadd_flour_image, "#FFFFFF"));
-        HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
-        testing.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        homePageRecyclerView.setLayoutManager(testingLayoutManager);
+        final List<HomePageModel> homePageModelList = new ArrayList<>();
+        adapter = new HomePageAdapter(homePageModelList);
+        homePageRecyclerView.setAdapter(adapter);
+        firebaseFirestore.collection("CATEGORIES")
+                .document("HOME").collection("TOP_DEALS").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        if ((long) documentSnapshot.get("view_type") == 0) {
+                            List<SliderModel> sliderModelList = new ArrayList<>();
+                            long no_of_banners = (long) documentSnapshot.get("no_of_banners");
+                            for (long x = 1; x < no_of_banners + 1; x++) {
+                                sliderModelList.add(new SliderModel(documentSnapshot.get("banner_" + x).toString(), documentSnapshot.get("banner_" + x + "_background").toString()));
+                            }
+                            homePageModelList.add(new HomePageModel(0, sliderModelList));
+
+                        } else if ((long) documentSnapshot.get("view_type") == 1) {
+                            homePageModelList.add(new HomePageModel(1, documentSnapshot.get("strip_ad_banner").toString(), documentSnapshot.get("background").toString()));
+                        } else if ((long) documentSnapshot.get("view_type") == 2) {
+                            List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
+                            long no_of_products = (long) documentSnapshot.get("no_of_products");
+                            for (long x = 1; x < no_of_products + 1; x++) {
+                                horizontalProductScrollModelList.add(
+                                        new HorizontalProductScrollModel
+                                                (documentSnapshot.get("product_ID_" + x).toString(),
+                                                 documentSnapshot.get("product_image_" + x).toString(),
+                                                 documentSnapshot.get("product_title_"+x).toString(),
+                                                 documentSnapshot.get("product_subtitle_"+x).toString(),
+                                                 documentSnapshot.get("product_price_"+x).toString()));
+                            }
+                            homePageModelList.add(new HomePageModel(2,documentSnapshot.get("layout_title").toString(),documentSnapshot.get("layout_background").toString() ,horizontalProductScrollModelList));
+
+                        } else if ((long) documentSnapshot.get("view_type") == 3) {
+
+                        }
+
+                    }
+                    adapter.notifyDataSetChanged();
+
+                } else {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
 
         return view;
     }

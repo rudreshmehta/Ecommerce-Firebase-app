@@ -1,6 +1,7 @@
-package com.example.sweven;
+ package com.example.sweven;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,6 +20,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,14 +87,15 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 ((BannerSliderViewHolder) viewHolder).setBannerSliderViewPager(sliderModelList);
                 break;
             case HomePageModel.STRIP_AD_BANNER:
-                int resource = homePageModelList.get(position).getResource();
+                String resource = homePageModelList.get(position).getResource();
                 String color = homePageModelList.get(position).getBackgroundColor();
                 ((StripAdBannerViewHolder) viewHolder).setStripAd(resource, color);
                 break;
             case HomePageModel.HORIZONTAL_PRODUCT_VIEW:
+                String layoutColor = homePageModelList.get(position).getBackgroundColor();
                 String horizontalLayouttitle = homePageModelList.get(position).getTitle();
                 List<HorizontalProductScrollModel> horizontalProductScrollModelList = homePageModelList.get(position).getHorizontalProductScrollModelList();
-                ((HorizontalProductViewHolder) viewHolder).setHorizontalProductLayout(horizontalProductScrollModelList, horizontalLayouttitle);
+                ((HorizontalProductViewHolder) viewHolder).setHorizontalProductLayout(horizontalProductScrollModelList, horizontalLayouttitle,layoutColor);
                 break;
             case HomePageModel.GRID_PRODUCT_VIEW:
                 String gridlayouttitle = homePageModelList.get(position).getTitle();
@@ -231,20 +236,22 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         }
 
-        private void setStripAd(int resource, String color) {
-            stripAdImage.setImageResource(resource);
+        private void setStripAd(String resource, String color) {
+
+            Glide.with(itemView.getContext()).load(resource).apply(new RequestOptions().placeholder(R.drawable.stripadd)).into(stripAdImage);
             stripAdContainer.setBackgroundColor(Color.parseColor(color));
         }
     }
 
     public class HorizontalProductViewHolder extends RecyclerView.ViewHolder {
-
+        private ConstraintLayout container;
         private TextView horizontalLayoutTitle;
         private Button horizontalViewAllBtn;
         private RecyclerView horizontalRecyclerView;
 
         public HorizontalProductViewHolder(@NonNull View itemView) {
             super(itemView);
+            container = itemView.findViewById(R.id.container);
             horizontalLayoutTitle = itemView.findViewById(R.id.horizontal_scroll_layout_title);
             horizontalViewAllBtn = itemView.findViewById(R.id.horizontal_scroll_layout_view_all);
             horizontalRecyclerView = itemView.findViewById(R.id.horizonatal_scroll_layout_recyclerview);
@@ -252,7 +259,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         }
 
-        private void setHorizontalProductLayout(List<HorizontalProductScrollModel> horizontalProductScrollModelList, String title) {
+        private void setHorizontalProductLayout(List<HorizontalProductScrollModel> horizontalProductScrollModelList, String title,String color) {
+            container.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color)));
             horizontalLayoutTitle.setText(title);
             if (horizontalProductScrollModelList.size() > 8) {
                 horizontalViewAllBtn.setVisibility(View.VISIBLE);
@@ -297,7 +305,8 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 TextView productTitle=gridProductLayout.getChildAt(x).findViewById(R.id.h_s_product_title);
                 TextView productDescription=gridProductLayout.getChildAt(x).findViewById(R.id.h_s_product_description);
                 TextView productPrice=gridProductLayout.getChildAt(x).findViewById(R.id.h_s_product_price);
-                productImage.setImageResource(horizontalProductScrollModelList.get(x).getProductImage());
+                //productImage.setImageResource(horizontalProductScrollModelList.get(x).getProductImage());
+                //Glide.with(itemView.getContext()).load(horizontalProductScrollModelList).into()
                 productTitle.setText(horizontalProductScrollModelList.get(x).getProductTitle());
                 productDescription.setText(horizontalProductScrollModelList.get(x).getProductDescription());
                 productPrice.setText(horizontalProductScrollModelList.get(x).getProductPrice());
