@@ -1,7 +1,10 @@
 package com.example.sweven;
 
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -20,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.sweven.DBqueries.categoryModelList;
+import static com.example.sweven.DBqueries.firebaseFirestore;
+import static com.example.sweven.DBqueries.homePageModelList;
+import static com.example.sweven.DBqueries.loadCategories;
+import static com.example.sweven.DBqueries.loadFragmentData;
 
 
 /**
@@ -45,8 +55,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
     private RecyclerView homePageRecyclerView;
-    private List<CategoryModel> categoryModelList;
-    private FirebaseFirestore firebaseFirestore;
+    private ImageView noInternetConnection;
+    //private FirebaseFirestore firebaseFirestore;
     private HomePageAdapter adapter;
 
     @Override
@@ -54,119 +64,54 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        categoryRecyclerView = view.findViewById(R.id.category_recyclerview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        categoryRecyclerView.setLayoutManager(layoutManager);
+        noInternetConnection = view.findViewById(R.id.no_internet_connection);
 
-        categoryModelList = new ArrayList<CategoryModel>();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo =connectivityManager.getActiveNetworkInfo();
 
-        categoryAdapter = new CategoryAdapter(categoryModelList);
-        categoryRecyclerView.setAdapter(categoryAdapter);
+        if(networkInfo!=null && networkInfo.isConnected()==true){
+            noInternetConnection.setVisibility(View.GONE);
+
+            categoryRecyclerView = view.findViewById(R.id.category_recyclerview);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            categoryRecyclerView.setLayoutManager(layoutManager);
 
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("CATEGORIES").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        categoryModelList.add(new CategoryModel(documentSnapshot.get("icon").toString(), documentSnapshot.get("categoryName").toString()));
-                    }
-                    categoryAdapter.notifyDataSetChanged();
-                } else {
-                    String error = task.getException().getMessage();
-                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
-                }
+            categoryAdapter = new CategoryAdapter(categoryModelList);
+            categoryRecyclerView.setAdapter(categoryAdapter);
+
+            if (categoryModelList.size() == 0) {
+                loadCategories(categoryAdapter, getContext());
+            } else {
+                categoryAdapter.notifyDataSetChanged();
             }
-        });
-
-        /////////////////////////BANNER SLIDER///////////////////////
 
 
-//        List<SliderModel> sliderModelList = new ArrayList<SliderModel>();
+            //////
 
+            homePageRecyclerView = view.findViewById(R.id.homepage_recyclerview);
+            LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
+            testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            homePageRecyclerView.setLayoutManager(testingLayoutManager);
 
+            adapter = new HomePageAdapter(homePageModelList);
+            homePageRecyclerView.setAdapter(adapter);
 
-
-
-/*
-        sliderModelList.add(new SliderModel(R.drawable.banner, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_one, "#CFAB7F"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_two, "#FFFFFF"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_three, "#E7E9E8"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_four, "#FFFFFF"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_five, "#E5D3DF"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_six, "#FFFFFF"));
-        sliderModelList.add(new SliderModel(R.drawable.banner_seven, "#000000"));
-*/
-        ///////////////////////////////////
-
-
-        //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
-        /*List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
-
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.flour, "Aashirwaad Aata", "Pure Sugar Wheat Control Flour", "Rs. 649/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.biscuits, "Cadbury Cookies", "Delicious Cadbury Cookies", "Rs. 99/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.chips, "Lays Chips", "Simply Salted Chips", "Rs. 29/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cleaner, "Lizol Cleaner", "Lizol Cleaner with Jasmine", "Rs. 250/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.coffee, "Nescafe Coffee", "Try Classic Coffee", "Rs. 120/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.dal, "Robin Toor Dal", "Perfect Tool Dal", "Rs. 659/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.deo, "Police Deo", "Try our 3 Combo deo", "Rs. 498/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.perfume, "Denver Perfume", "Smell Good", "Rs. 125/-"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.mipmap.cleaning_tools, "MOP Cleaner", "Clean your floor with MOP", "Rs. 999/-"));*/
-        //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
-
-        homePageRecyclerView = view.findViewById(R.id.homepage_recyclerview);
-        LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
-        testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        homePageRecyclerView.setLayoutManager(testingLayoutManager);
-        final List<HomePageModel> homePageModelList = new ArrayList<>();
-        adapter = new HomePageAdapter(homePageModelList);
-        homePageRecyclerView.setAdapter(adapter);
-        firebaseFirestore.collection("CATEGORIES")
-                .document("HOME").collection("TOP_DEALS").orderBy("index").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        if ((long) documentSnapshot.get("view_type") == 0) {
-                            List<SliderModel> sliderModelList = new ArrayList<>();
-                            long no_of_banners = (long) documentSnapshot.get("no_of_banners");
-                            for (long x = 1; x < no_of_banners + 1; x++) {
-                                sliderModelList.add(new SliderModel(documentSnapshot.get("banner_" + x).toString(), documentSnapshot.get("banner_" + x + "_background").toString()));
-                            }
-                            homePageModelList.add(new HomePageModel(0, sliderModelList));
-
-                        } else if ((long) documentSnapshot.get("view_type") == 1) {
-                            homePageModelList.add(new HomePageModel(1, documentSnapshot.get("strip_ad_banner").toString(), documentSnapshot.get("background").toString()));
-                        } else if ((long) documentSnapshot.get("view_type") == 2) {
-                            List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
-                            long no_of_products = (long) documentSnapshot.get("no_of_products");
-                            for (long x = 1; x < no_of_products + 1; x++) {
-                                horizontalProductScrollModelList.add(
-                                        new HorizontalProductScrollModel
-                                                (documentSnapshot.get("product_ID_" + x).toString(),
-                                                 documentSnapshot.get("product_image_" + x).toString(),
-                                                 documentSnapshot.get("product_title_"+x).toString(),
-                                                 documentSnapshot.get("product_subtitle_"+x).toString(),
-                                                 documentSnapshot.get("product_price_"+x).toString()));
-                            }
-                            homePageModelList.add(new HomePageModel(2,documentSnapshot.get("layout_title").toString(),documentSnapshot.get("layout_background").toString() ,horizontalProductScrollModelList));
-
-                        } else if ((long) documentSnapshot.get("view_type") == 3) {
-
-                        }
-
-                    }
-                    adapter.notifyDataSetChanged();
-
-                } else {
-                    String error = task.getException().getMessage();
-                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
-                }
+            if (homePageModelList.size() == 0) {
+                loadFragmentData(adapter, getContext());
+            } else {
+                adapter.notifyDataSetChanged();
             }
-        });
+
+
+
+        }
+        else{
+            Glide.with(this).load(R.drawable.no_internet_connection).into(noInternetConnection);
+            noInternetConnection.setVisibility(View.VISIBLE);
+        }
+
 
 
         return view;

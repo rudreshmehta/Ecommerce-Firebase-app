@@ -1,7 +1,10 @@
 package com.example.sweven;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import static com.example.sweven.RegisterActivity.setSignUpFragment;
 
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.getMenu().getItem(0).setChecked(true);
         frameLayout = findViewById(R.id.main_framelayout);
 
+
         if (showCart) {
             drawer.setDrawerLockMode(1);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             setFragment(new HomeFragment(), HOME_FRAGMENT);
         }
+
 
 
     }
