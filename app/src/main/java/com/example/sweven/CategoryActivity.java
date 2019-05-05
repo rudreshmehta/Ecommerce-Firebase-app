@@ -11,9 +11,14 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.sweven.DBqueries.lists;
+import static com.example.sweven.DBqueries.loadCategoriesNames;
+import static com.example.sweven.DBqueries.loadFragmentData;
+
 public class CategoryActivity extends AppCompatActivity {
     private RecyclerView categoryRecyclerView;
-
+    private List<HomePageModel> homePageModelFakeList = new ArrayList<>();
+    private  HomePageAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,24 +29,54 @@ public class CategoryActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //////////////////////////////HomePage Fake List
+
+        List<SliderModel> sliderModelFakeList = new ArrayList<>();
+        sliderModelFakeList.add(new SliderModel("null", "#FFFFFF"));
+        sliderModelFakeList.add(new SliderModel("null", "#FFFFFF"));
+        sliderModelFakeList.add(new SliderModel("null", "#FFFFFF"));
+        sliderModelFakeList.add(new SliderModel("null", "#FFFFFF"));
+
+        List<HorizontalProductScrollModel> horizontalProductScrollModelFakeList = new ArrayList<>();
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+        horizontalProductScrollModelFakeList.add(new HorizontalProductScrollModel("", "", "", "", ""));
+
+        homePageModelFakeList.add(new HomePageModel(0, sliderModelFakeList));
+        homePageModelFakeList.add(new HomePageModel(1, "","#FFFFFF"));
+        homePageModelFakeList.add(new HomePageModel(2, "","#FFFFFF",horizontalProductScrollModelFakeList,new ArrayList<WishlistModel>()));
+        homePageModelFakeList.add(new HomePageModel(3, "","#FFFFFF",horizontalProductScrollModelFakeList));
+
+        //////////////////////////////HomePage Fake List
+
+
+
         categoryRecyclerView=findViewById(R.id.category_recyclerview);
-
-        /////////////////////////BANNER SLIDER///////////////////////
-
-        List<SliderModel>sliderModelList = new ArrayList<SliderModel>();
-
-        ///////////////////////////////////
-
-
-
-        //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
-        //////////////////////////////// HORIZONTAL PRODUCT SCROLL LAYOUT ////////////////////////////////////////////////
 
         LinearLayoutManager testingLayoutManager = new LinearLayoutManager(this);
         testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecyclerView.setLayoutManager(testingLayoutManager);
-        List<HomePageModel> homePageModelList = new ArrayList<>();
-        HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
+        adapter = new HomePageAdapter(homePageModelFakeList);
+
+
+        int listPosition=0;
+        for(int x =0;x<loadCategoriesNames.size();x++){
+            if(loadCategoriesNames.get(x).equals(title.toUpperCase())){
+                listPosition=x;
+            }
+        }
+        if(listPosition==0){
+            loadCategoriesNames.add(title.toUpperCase());
+            lists.add(new ArrayList<HomePageModel>());
+            loadFragmentData(categoryRecyclerView, this,loadCategoriesNames.size()-1,title);
+        }else{
+            adapter = new HomePageAdapter(lists.get(listPosition));
+        }
+
         categoryRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

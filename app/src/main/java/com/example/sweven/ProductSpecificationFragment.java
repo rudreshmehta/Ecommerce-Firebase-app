@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
+
  */
 public class ProductSpecificationFragment extends Fragment {
 
@@ -24,6 +26,7 @@ public class ProductSpecificationFragment extends Fragment {
     }
 
     private RecyclerView productSpecificationRecyclerView;
+    public List<ProductSpecificationModel> productSpecificationModelList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +37,10 @@ public class ProductSpecificationFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         productSpecificationRecyclerView.setLayoutManager(linearLayoutManager);
-        List<ProductSpecificationModel> productSpecificationModelList = new ArrayList<>();
-        productSpecificationModelList.add(new ProductSpecificationModel(0, "General"));
+
+
+
+        /*productSpecificationModelList.add(new ProductSpecificationModel(0, "General"));
         productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
         productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
         productSpecificationModelList.add(new ProductSpecificationModel(0, "Display"));
@@ -47,6 +52,18 @@ public class ProductSpecificationFragment extends Fragment {
         productSpecificationModelList.add(new ProductSpecificationModel(0, "Display"));
         productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
         productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(0, "General"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(0, "Display"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(0, "General"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(0, "Display"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));
+        productSpecificationModelList.add(new ProductSpecificationModel(1, "No Technical Specification", "Aashirvaad Sugar Control Aata"));*/
         ProductSpecificationAdapter productSpecificationAdapter = new ProductSpecificationAdapter(productSpecificationModelList);
         productSpecificationRecyclerView.setAdapter(productSpecificationAdapter);
         productSpecificationAdapter.notifyDataSetChanged();

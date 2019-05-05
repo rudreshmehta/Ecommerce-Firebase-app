@@ -18,7 +18,9 @@ public class ViewAllActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private GridView gridView;
+    public static List<WishlistModel>wishlistModelList;
     public static  List<HorizontalProductScrollModel> horizontalProductScrollModelList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +40,6 @@ public class ViewAllActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        List<WishlistModel> wishlistModelList = new ArrayList<>();
-        wishlistModelList.add(new WishlistModel(R.drawable.flour,"Aashirvaad Aata",1,"3",145,"Rs. 659/-","Rs. 759/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.dal,"Robin Toor Dal",0,"3",145,"Rs. 559/-","Rs. 449/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.biscuit,"Cadbury Cookies",2,"3",145,"Rs. 80/-","Rs. 120/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.air_fresheners,"Air Freshner",4,"3",145,"Rs. 269/-","Rs. 329/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.deo,"Police Deo",1,"3",145,"Rs. 359/-","Rs. 459/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.flour,"Aashirvaad Aata",1,"3",145,"Rs. 659/-","Rs. 759/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.dal,"Robin Toor Dal",0,"3",145,"Rs. 559/-","Rs. 449/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.biscuit,"Cadbury Cookies",2,"3",145,"Rs. 80/-","Rs. 120/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.air_fresheners,"Air Freshner",4,"3",145,"Rs. 269/-","Rs. 329/-","Cash on Delivery"));
-        wishlistModelList.add(new WishlistModel(R.drawable.deo,"Police Deo",1,"3",145,"Rs. 359/-","Rs. 459/-","Cash on Delivery"));
 
         WishlistAdapter adapter = new WishlistAdapter(wishlistModelList,false);
         recyclerView.setAdapter(adapter);

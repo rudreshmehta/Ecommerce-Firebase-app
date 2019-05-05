@@ -6,13 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
 
 public class ProductImagesAdapter extends PagerAdapter {
 
-    List<Integer> productImages;
+    List<String> productImages;
 
-    public ProductImagesAdapter(List<Integer> productImages) {
+    public ProductImagesAdapter(List<String> productImages) {
         this.productImages = productImages;
     }
 
@@ -20,7 +23,7 @@ public class ProductImagesAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView productImage = new ImageView(container.getContext());
-        productImage.setImageResource(productImages.get(position));
+        Glide.with(container.getContext()).load(productImages.get(position)).apply(new RequestOptions().placeholder(R.mipmap.home_icon)).into(productImage);
         container.addView(productImage,0);
         return productImage;
     }
