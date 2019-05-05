@@ -336,7 +336,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             }
             }
 
-            if(title.equals("")) {
+            if(!title.equals("")) {
                 gridLayoutViewAllButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
