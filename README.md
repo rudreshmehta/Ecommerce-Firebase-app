@@ -19,14 +19,12 @@ This project is just a prototype of the full product and it uses technologies li
   
  Material Design is used to design app interface.
 Some of the screenshots given below.
-![Dashboard](https://drive.google.com/open?id=19a3OmZoDLXYF5IU7_W5obvqS7-s3Onyo)
-
-![Product page part 1](https://drive.google.com/open?id=1DPHKApcFqeMfes8ZZuCOg64LG399n3l_)
-
-![Product page part 2(description and product price)](https://drive.google.com/open?id=1BGrTgi5oULmP8pyTKdUrKXnMWvR6oFcx)
-
-![Trending products feature](https://drive.google.com/open?id=1dZTtTuQW31uNHxUkAQX8HS1p7d3VEerf)
-
-![My cart](https://drive.google.com/open?id=14lQbn9lfdIMBakFJuaRgRObv7YNTl1ZD)
-
-![Product tracking feature](https://drive.google.com/open?id=1vCiK8g7adPAu0GnZH4LpUR4iMLw5lF-n) 
+![Screenshot_20190723_142603](https://user-images.githubusercontent.com/29975909/61706703-5ffa0100-ad66-11e9-9c42-387665a870e4.png)
+![Screenshot_20190723_142630](https://user-images.githubusercontent.com/29975909/61706704-5ffa0100-ad66-11e9-8958-9688ac04760f.png)
+![Screenshot_20190723_142705](https://user-images.githubusercontent.com/29975909/61706705-5ffa0100-ad66-11e9-9b10-751afa549d86.png)
+![Screenshot_20190723_142728](https://user-images.githubusercontent.com/29975909/61706706-60929780-ad66-11e9-89e1-57886adbb037.png)
+![Screenshot_20190723_142755](https://user-images.githubusercontent.com/29975909/61706707-60929780-ad66-11e9-8434-f458bef15cd6.png)
+![Screenshot_20190723_142915](https://user-images.githubusercontent.com/29975909/61706709-60929780-ad66-11e9-934f-680bb45d5623.png)
+![Screenshot_20190723_142942](https://user-images.githubusercontent.com/29975909/61706710-612b2e00-ad66-11e9-8d92-bf70d4dcb28a.png)
+![Screenshot_20190723_143037](https://user-images.githubusercontent.com/29975909/61706711-612b2e00-ad66-11e9-91a6-e2848d3ec1b2.png)
+![Screenshot_20190723_143104](https://user-images.githubusercontent.com/29975909/61706712-612b2e00-ad66-11e9-8c01-6b9e388d700d.png)
